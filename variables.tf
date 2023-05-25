@@ -52,7 +52,8 @@ variable "enable_log_file_validation" {
 }
 
 variable "include_global_service_events" {
-  type        = string
+  type        = bool
   description = "(Optional) Whether the trail is publishing events from global services such as IAM to the log files. Defaults to `true`."
+  default     = true
 }
 
