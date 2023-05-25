@@ -55,7 +55,7 @@ module "kms_key" {
                 "kms:DescribeKey"
             ],
             "Resource": "*"
-        }
+        },
         {
             "Sid": "AWSCloudTrail", 
             "Effect": "Allow", 
@@ -130,12 +130,6 @@ module "bucket_policy" {
   s3_bucket_id = module.bucket.s3_bucket_id
 
   policy = <<EOF
-module "bucket_policy" {
-  source  = "blackbird-cloud/s3-bucket-policy/aws"
-  version = "~> 0"
-
-  s3_bucket_id = module.bucket.s3_bucket_id
-  policy       = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -179,4 +173,5 @@ resource "aws_cloudtrail" "default" {
   enable_log_file_validation    = var.enable_log_file_validation
   include_global_service_events = var.include_global_service_events
   tags                          = var.tags
+  depends_on                    = [module.bucket_policy]
 }
